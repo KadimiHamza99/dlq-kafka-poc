@@ -1,0 +1,716 @@
+{
+  "JMSMessage": {
+    "properties": {
+      "$coderType": "idata_bytes",
+      "documentType": "AFS_COMMON_UnderwriteIndividualProtection.doc:SouscriptionContratIPadMessage",
+      "functionalID": "1BD5EI5I5YE4",
+      "axa-client-id": "CLT_EMAC",
+      "axa-correlation-id": "1f1d4fb5-f1c9-40a6-907c-db756cb3cf43",
+      "dtdTraceTagInfo": "FW4;1030473072;4;967204937;899747;0;428971137;831;75a8;2h03;3hc81a1075;4h7b12;5h01",
+      "JMSXDeliveryCount": 1
+    },
+    "header": {
+      "JMSCorrelationID": null,
+      "JMSDeliveryMode": 2,
+      "JMSDestination": "/jms/dest/eipTIndividualProtectionSubscriptionV2",
+      "JMSExpiration": 0,
+      "JMSMessageID": "ID:3753bcf0-d0ca-11ee-972a-0000000008a6",
+      "JMSPriority": 4,
+      "JMSRedelivered": false,
+      "JMSReplyTo": "null",
+      "JMSTimestamp": 1708527742512,
+      "JMSType": null
+    },
+    "body": {
+      "data": {
+        "AXAContextHeader": {
+          "aems:contextHeader": {
+            "aems:auditTimestamp": "2024-02-21T16:02:22.520",
+            "aems:functionalID": "1BD5EI5I5YE4",
+            "aems:addressing": {
+              "aems:messageID": {
+                "*body": "45721291-a447-477c-aeb7-b06807e47064"
+              },
+              "aems:conversationID": {
+                "*body": "1f1d4fb5-f1c9-40a6-907c-db756cb3cf43"
+              },
+              "aems:precedingMessageID": {
+                "*body": "45721291-a447-477c-aeb7-b06807e47064"
+              }
+            },
+            "aems:messageMetadata": {
+              "aems:serviceID": "246866eb-1ee8-4969-af29-ba84cfb3125b",
+              "aems:serviceName": "AFS_COMPOSITE_UnderwriteIndividualProtection_v2.pub:processSubscription",
+              "aems:stage": "PRD",
+              "aems:subStage": "MAIN"
+            },
+            "aems:requesters": {
+              "@totalCount": "1",
+              "aems:requester": [
+                {
+                  "@order": "1",
+                  "aems:opCo": "FR",
+                  "aems:businessProcess": "DebugService",
+                  "aems:businessSubProcess": "DebugStep",
+                  "aems:businessStep": "AFS_COMPOSITE_UnderwriteIndividualProtection_v2.pub:processSubscription",
+                  "aems:businessObjectID": "246866eb-1ee8-4969-af29-ba84cfb3125b",
+                  "aems:creationTimestamp": "2024-02-21T16:02:22.521"
+                }
+              ]
+            },
+            "aems:additionalData": {
+              "aems:data": [
+                {
+                  "*body": "1BD5EI5I5YE4",
+                  "@key": "IdentifiantDemande"
+                },
+                {
+                  "*body": "410251985",
+                  "@key": "Portefeuille"
+                },
+                {
+                  "*body": "1BD5EI5I5YE4",
+                  "@key": "functionalID"
+                }
+              ]
+            }
+          }
+        },
+        "Message": {
+          "Souscription": {
+            "Utilisateur": "V0658031",
+            "ReseauDistribution": "10",
+            "DateReception": "2024-02-21",
+            "Consommateur": "1081",
+            "ComplementConsommateur": "APR V11.3.1",
+            "IdentifiantDemande": "1BD5EI5I5YE4",
+            "Horodatage": "2024-02-21T16:02:11.000000",
+            "SignatureElectronique": "true",
+            "ProfessionNonReferencee": "false",
+            "QSMVDigital": "true",
+            "EligibleAMEL": "true",
+            "Collaboration": {
+              "Producteur": "65803175"
+            },
+            "Reglement": {
+              "Payeur": {
+                "IdLocalPersonne": "1",
+                "IdLocalCoordonneesBancaires": "1"
+              },
+              "ModeDePaiement": "PA",
+              "MontantNewCash": "156.64"
+            },
+            "EstimationRisque": {
+              "InformationsMedicales": {
+                "AssureFumeur": "false",
+                "NiveauSelection": "1",
+                "QuestionnaireMedicalSimplifie": "true",
+                "Caracteristiques": {
+                  "Caracteristique": [
+                    {
+                      "Identifiant": "1",
+                      "Reponse": "true"
+                    },
+                    {
+                      "Identifiant": "2",
+                      "Reponse": "false"
+                    },
+                    {
+                      "Identifiant": "3",
+                      "Reponse": "false"
+                    },
+                    {
+                      "Identifiant": "4",
+                      "Reponse": "true"
+                    },
+                    {
+                      "Identifiant": "5",
+                      "Reponse": "false"
+                    },
+                    {
+                      "Identifiant": "6",
+                      "Reponse": "false"
+                    },
+                    {
+                      "Identifiant": "7",
+                      "Reponse": "false"
+                    },
+                    {
+                      "Identifiant": "8",
+                      "Reponse": "false"
+                    },
+                    {
+                      "Identifiant": "9",
+                      "Reponse": "true"
+                    },
+                    {
+                      "Identifiant": "10",
+                      "Reponse": "true"
+                    },
+                    {
+                      "Identifiant": "11",
+                      "Reponse": "false"
+                    },
+                    {
+                      "Identifiant": "12",
+                      "Reponse": "false"
+                    },
+                    {
+                      "Identifiant": "13",
+                      "Reponse": "false"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "Contrat": {
+            "Portefeuille": "410251985",
+            "CodeProduitUV": "94624",
+            "DateEffet": "2024-02-21",
+            "CreditImpotA82": "0",
+            "JourPrelevement": "5",
+            "BaremePro": "false",
+            "Souscripteurs": {
+              "Souscripteur": [
+                {
+                  "IdLocalPersonne": "1"
+                }
+              ]
+            },
+            "Assures": {
+              "Assure": [
+                {
+                  "IdLocalPersonne": "1"
+                }
+              ]
+            },
+            "PayeurPrime": {
+              "IdLocalPersonne": "1",
+              "IdLocalCoordonneesBancaires": "1"
+            },
+            "Garanties": {
+              "Garantie": [
+                {
+                  "IdentifiantLocal": "1",
+                  "CodeUniteTechnique": "95094",
+                  "MontantGaranti": "500.00",
+                  "Tarification": {
+                    "ClasseTarification": {
+                      "Identifiant": "2",
+                      "Version": "2"
+                    }
+                  }
+                },
+                {
+                  "IdentifiantLocal": "2",
+                  "CodeUniteTechnique": "85224",
+                  "MontantGaranti": "20000.00",
+                  "Tarification": {
+                    "ClasseTarification": {
+                      "Identifiant": "2",
+                      "Version": "2"
+                    }
+                  }
+                },
+                {
+                  "IdentifiantLocal": "3",
+                  "CodeUniteTechnique": "95144",
+                  "Tarification": {
+                    "ClasseTarification": {
+                      "Identifiant": "2",
+                      "Version": "2"
+                    }
+                  }
+                },
+                {
+                  "IdentifiantLocal": "4",
+                  "CodeUniteTechnique": "85214",
+                  "MontantGaranti": "20000.00",
+                  "ClauseBeneficiaire": {
+                    "CodeMnemonique": "EH"
+                  },
+                  "Tarification": {
+                    "ClasseTarification": {
+                      "Identifiant": "2",
+                      "Version": "2"
+                    }
+                  }
+                },
+                {
+                  "IdentifiantLocal": "5",
+                  "CodeUniteTechnique": "95004",
+                  "MontantGaranti": "50.00",
+                  "Franchise": {
+                    "IdentifiantHospitalisation": "1",
+                    "IdentifiantAccident": "1",
+                    "IdentifiantMaladie": "1",
+                    "IdentifiantDureeMax": "1"
+                  },
+                  "Tarification": {
+                    "ClasseTarification": {
+                      "Identifiant": "2",
+                      "Version": "2"
+                    }
+                  }
+                },
+                {
+                  "IdentifiantLocal": "6",
+                  "CodeUniteTechnique": "95134",
+                  "Tarification": {
+                    "ClasseTarification": {
+                      "Identifiant": "2",
+                      "Version": "2"
+                    }
+                  }
+                },
+                {
+                  "IdentifiantLocal": "7",
+                  "CodeUniteTechnique": "94974",
+                  "MontantGaranti": "20000.00",
+                  "Tarification": {
+                    "ClasseTarification": {
+                      "Identifiant": "2",
+                      "Version": "2"
+                    }
+                  }
+                },
+                {
+                  "IdentifiantLocal": "8",
+                  "CodeUniteTechnique": "95164",
+                  "Tarification": {
+                    "ClasseTarification": {
+                      "Identifiant": "2",
+                      "Version": "2"
+                    }
+                  }
+                }
+              ]
+            },
+            "PlanPrimesPeriodiques": {
+              "Montant": "70.82",
+              "Periodicite": "M",
+              "Indexation": "true",
+              "ModeDePaiement": "PA"
+            },
+            "OptionInval15": "false"
+          },
+          "Personnes": {
+            "Personne": [
+              {
+                "IdLocal": "1",
+                "NumAbonne": "0829090011",
+                "Qualite": "MR",
+                "Nom": "MARGAILLAN",
+                "Adresse": {
+                  "NumeroVoie": "320 chemin du moulin",
+                  "CodePostal": "04150",
+                  "Ville": "REVEST DU BION",
+                  "Pays": "FR"
+                },
+                "ListeCoordonneesBancaires": {
+                  "CoordonneesBancaires": [
+                    {
+                      "IdLocal": "1",
+                      "IBAN": {
+                        "CLE": "FR76",
+                        "RIBBanque": "11306",
+                        "RIBGuichet": "00084",
+                        "RIBCompte": "92781365000",
+                        "RIBCle": "86"
+                      },
+                      "BIC": "AGRIFRPP813",
+                      "Titulaire": {
+                        "Qualite": "MR",
+                        "Nom": "MARGAILLAN",
+                        "Prenom": "Jean Francois"
+                      }
+                    }
+                  ]
+                },
+                "PersonnePhysique": {
+                  "Prenom": "Jean Francois",
+                  "DateNaissance": "1969-06-30",
+                  "DepartementCodePostalNaissance": "84800",
+                  "PaysNaissance": "FR",
+                  "VilleNaissance": "L ISLE SUR LA SORGUE",
+                  "SituationFamille": "WIDOWED",
+                  "Profession": "OPERATEUR RESEAU",
+                  "IdentifiantProfession": "1508",
+                  "CategorieSocioProfessionnelle": "4791",
+                  "TypePieceIdentite": "CNI",
+                  "NumeroPieceIdentite": "130484200034",
+                  "DateDelivrancePI": "2013-04-02",
+                  "LieuDelivrancePI": "Vaucluse",
+                  "AutoriteDelivrancePI": "préfecture",
+                  "DateFinValiditePI": "2028-04-01",
+                  "Nationalite": "FR",
+                  "PseudoMail": "jfm69",
+                  "ServeurMail": "hotmail.fr"
+                }
+              }
+            ]
+          },
+          "Documents": {
+            "Document": [
+              {
+                "Properties": {
+                  "Propertie": [
+                    {
+                      "Cle": "ecm_NumClientFCA",
+                      "Valeur": "0829090011"
+                    },
+                    {
+                      "Cle": "ecm_TopBrouillon",
+                      "Valeur": "Non"
+                    },
+                    {
+                      "Cle": "ecm_TopBanque",
+                      "Valeur": "Oui"
+                    },
+                    {
+                      "Cle": "ecm_TopRH",
+                      "Valeur": "Non"
+                    },
+                    {
+                      "Cle": "ecm_TypeDemat",
+                      "Valeur": "Courrier"
+                    },
+                    {
+                      "Cle": "ecm_TopVIP",
+                      "Valeur": "Non"
+                    },
+                    {
+                      "Cle": "ecm_TypeDocument",
+                      "Valeur": "Relevé identité bancaire (IBAN / BIC)"
+                    },
+                    {
+                      "Cle": "ecm_TopMedical",
+                      "Valeur": "Non"
+                    },
+                    {
+                      "Cle": "ecm_SAOrigine",
+                      "Valeur": "APR"
+                    },
+                    {
+                      "Cle": "ecm_StatutSignature",
+                      "Valeur": "Non signé"
+                    },
+                    {
+                      "Cle": "ecm_Branche",
+                      "Valeur": "Vie individuelle prévoyance"
+                    },
+                    {
+                      "Cle": "ecm_NomDoc",
+                      "Valeur": "RIB.png"
+                    },
+                    {
+                      "Cle": "ecm_ReseauDistrib",
+                      "Valeur": "AEP"
+                    }
+                  ]
+                },
+                "Contenu": "/prod/EIP5/data/EPS/20240221T160222355-Document-1BD5EI5I5YE4.txt"
+              },
+              {
+                "Properties": {
+                  "Propertie": [
+                    {
+                      "Cle": "ecm_NumClientFCA",
+                      "Valeur": "0829090011"
+                    },
+                    {
+                      "Cle": "ecm_TopBrouillon",
+                      "Valeur": "Non"
+                    },
+                    {
+                      "Cle": "ecm_TopBanque",
+                      "Valeur": "Non"
+                    },
+                    {
+                      "Cle": "ecm_TopRH",
+                      "Valeur": "Non"
+                    },
+                    {
+                      "Cle": "ecm_TypeDemat",
+                      "Valeur": "Courrier"
+                    },
+                    {
+                      "Cle": "ecm_TopVIP",
+                      "Valeur": "Non"
+                    },
+                    {
+                      "Cle": "ecm_TypeDocument",
+                      "Valeur": "Carte nationale d'identité (CNI)"
+                    },
+                    {
+                      "Cle": "ecm_TopMedical",
+                      "Valeur": "Non"
+                    },
+                    {
+                      "Cle": "ecm_SAOrigine",
+                      "Valeur": "APR"
+                    },
+                    {
+                      "Cle": "ecm_StatutSignature",
+                      "Valeur": "Non signé"
+                    },
+                    {
+                      "Cle": "ecm_Branche",
+                      "Valeur": "Vie individuelle prévoyance"
+                    },
+                    {
+                      "Cle": "ecm_NomDoc",
+                      "Valeur": "PI_justificatifs_0013Y000039FFxPQAW.pdf"
+                    },
+                    {
+                      "Cle": "ecm_ReseauDistrib",
+                      "Valeur": "AEP"
+                    }
+                  ]
+                },
+                "Contenu": "/prod/EIP5/data/EPS/20240221T160222389-Document-1BD5EI5I5YE4.txt"
+              },
+              {
+                "Properties": {
+                  "Propertie": [
+                    {
+                      "Cle": "ecm_NumClientFCA",
+                      "Valeur": "0829090011"
+                    },
+                    {
+                      "Cle": "ecm_TopBrouillon",
+                      "Valeur": "Non"
+                    },
+                    {
+                      "Cle": "ecm_TopBanque",
+                      "Valeur": "Non"
+                    },
+                    {
+                      "Cle": "ecm_TopRH",
+                      "Valeur": "Non"
+                    },
+                    {
+                      "Cle": "ecm_TypeDemat",
+                      "Valeur": "Courrier"
+                    },
+                    {
+                      "Cle": "ecm_TopVIP",
+                      "Valeur": "Non"
+                    },
+                    {
+                      "Cle": "ecm_TypeDocument",
+                      "Valeur": "Bulletin d'adhésion"
+                    },
+                    {
+                      "Cle": "ecm_TopMedical",
+                      "Valeur": "Non"
+                    },
+                    {
+                      "Cle": "ecm_SAOrigine",
+                      "Valeur": "APR"
+                    },
+                    {
+                      "Cle": "ecm_StatutSignature",
+                      "Valeur": "Signé"
+                    },
+                    {
+                      "Cle": "ecm_Branche",
+                      "Valeur": "Vie individuelle prévoyance"
+                    },
+                    {
+                      "Cle": "ecm_NomDoc",
+                      "Valeur": "Adhesion_Avizen_1BD5EI5I5YE4_MARGAILLAN_Jean Francois.pdf"
+                    },
+                    {
+                      "Cle": "ecm_ReseauDistrib",
+                      "Valeur": "AEP"
+                    }
+                  ]
+                },
+                "Contenu": "/prod/EIP5/data/EPS/20240221T160222413-Document-1BD5EI5I5YE4.txt"
+              },
+              {
+                "Properties": {
+                  "Propertie": [
+                    {
+                      "Cle": "ecm_NumClientFCA",
+                      "Valeur": "0829090011"
+                    },
+                    {
+                      "Cle": "ecm_TopBrouillon",
+                      "Valeur": "Non"
+                    },
+                    {
+                      "Cle": "ecm_TopBanque",
+                      "Valeur": "Non"
+                    },
+                    {
+                      "Cle": "ecm_TopRH",
+                      "Valeur": "Non"
+                    },
+                    {
+                      "Cle": "ecm_TypeDemat",
+                      "Valeur": "Courrier"
+                    },
+                    {
+                      "Cle": "ecm_TopVIP",
+                      "Valeur": "Non"
+                    },
+                    {
+                      "Cle": "ecm_TypeDocument",
+                      "Valeur": "Questionnaire médical simplifié"
+                    },
+                    {
+                      "Cle": "ecm_TopMedical",
+                      "Valeur": "Non"
+                    },
+                    {
+                      "Cle": "ecm_SAOrigine",
+                      "Valeur": "APR"
+                    },
+                    {
+                      "Cle": "ecm_StatutSignature",
+                      "Valeur": "Signé"
+                    },
+                    {
+                      "Cle": "ecm_Branche",
+                      "Valeur": "Vie individuelle prévoyance"
+                    },
+                    {
+                      "Cle": "ecm_NomDoc",
+                      "Valeur": "QuestionnaireSimplifie_1BD5EI5I5YE4_MARGAILLAN_Jean Francois.pdf"
+                    },
+                    {
+                      "Cle": "ecm_ReseauDistrib",
+                      "Valeur": "AEP"
+                    }
+                  ]
+                },
+                "Contenu": "/prod/EIP5/data/EPS/20240221T160222449-Document-1BD5EI5I5YE4.txt"
+              },
+              {
+                "Properties": {
+                  "Propertie": [
+                    {
+                      "Cle": "ecm_NumClientFCA",
+                      "Valeur": "0829090011"
+                    },
+                    {
+                      "Cle": "ecm_TopBrouillon",
+                      "Valeur": "Non"
+                    },
+                    {
+                      "Cle": "ecm_TopBanque",
+                      "Valeur": "Non"
+                    },
+                    {
+                      "Cle": "ecm_TopRH",
+                      "Valeur": "Non"
+                    },
+                    {
+                      "Cle": "ecm_TypeDemat",
+                      "Valeur": "Courrier"
+                    },
+                    {
+                      "Cle": "ecm_TopVIP",
+                      "Valeur": "Non"
+                    },
+                    {
+                      "Cle": "ecm_TypeDocument",
+                      "Valeur": "Obligations réglementaires / LME"
+                    },
+                    {
+                      "Cle": "ecm_TopMedical",
+                      "Valeur": "Non"
+                    },
+                    {
+                      "Cle": "ecm_SAOrigine",
+                      "Valeur": "APR"
+                    },
+                    {
+                      "Cle": "ecm_StatutSignature",
+                      "Valeur": "Signé"
+                    },
+                    {
+                      "Cle": "ecm_Branche",
+                      "Valeur": "Vie individuelle prévoyance"
+                    },
+                    {
+                      "Cle": "ecm_NomDoc",
+                      "Valeur": "FIP_Avizen_1BD5EI5I5YE4_MARGAILLAN_Jean Francois.pdf"
+                    },
+                    {
+                      "Cle": "ecm_ReseauDistrib",
+                      "Valeur": "AEP"
+                    }
+                  ]
+                },
+                "Contenu": "/prod/EIP5/data/EPS/20240221T160222471-Document-1BD5EI5I5YE4.txt"
+              },
+              {
+                "Properties": {
+                  "Propertie": [
+                    {
+                      "Cle": "ecm_NumClientFCA",
+                      "Valeur": "0829090011"
+                    },
+                    {
+                      "Cle": "ecm_TopBrouillon",
+                      "Valeur": "Non"
+                    },
+                    {
+                      "Cle": "ecm_TopBanque",
+                      "Valeur": "Non"
+                    },
+                    {
+                      "Cle": "ecm_TopRH",
+                      "Valeur": "Non"
+                    },
+                    {
+                      "Cle": "ecm_TypeDemat",
+                      "Valeur": "Courrier"
+                    },
+                    {
+                      "Cle": "ecm_TopVIP",
+                      "Valeur": "Non"
+                    },
+                    {
+                      "Cle": "ecm_TypeDocument",
+                      "Valeur": "Mandat de prélèvement SEPA"
+                    },
+                    {
+                      "Cle": "ecm_TopMedical",
+                      "Valeur": "Non"
+                    },
+                    {
+                      "Cle": "ecm_SAOrigine",
+                      "Valeur": "APR"
+                    },
+                    {
+                      "Cle": "ecm_StatutSignature",
+                      "Valeur": "Signé"
+                    },
+                    {
+                      "Cle": "ecm_Branche",
+                      "Valeur": "Vie individuelle prévoyance"
+                    },
+                    {
+                      "Cle": "ecm_NomDoc",
+                      "Valeur": "MandatSEPA_1BD5EI5I5YE4_MARGAILLAN_Jean Francois.pdf"
+                    },
+                    {
+                      "Cle": "ecm_ReseauDistrib",
+                      "Valeur": "AEP"
+                    }
+                  ]
+                },
+                "Contenu": "/prod/EIP5/data/EPS/20240221T160222491-Document-1BD5EI5I5YE4.txt"
+              }
+            ]
+          }
+        }
+      }
+    }
+  }
+}
