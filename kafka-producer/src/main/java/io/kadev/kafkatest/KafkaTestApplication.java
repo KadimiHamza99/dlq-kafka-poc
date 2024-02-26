@@ -24,7 +24,7 @@ public class KafkaTestApplication implements CommandLineRunner {
     @Value(value = "${spring.kafka.topic.name}")
     private String mainTopic;
 
-    public void sendMessage(InputModel message) {
+    public void sendMessage(String message) {
         CompletableFuture<SendResult<String, Object>> future = kafkaTemplate.send(mainTopic, UUID.randomUUID().toString(), message);
         future.whenComplete((result, ex) -> {
             if (ex == null) {
@@ -44,8 +44,8 @@ public class KafkaTestApplication implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         InputModel input = ObjectFactory.request1();
-        for(int i = 100000; i>0; i--){
-            sendMessage(input);
+        for(int i = 1; i>0; i--){
+            sendMessage(String.valueOf(i));
         }
     }
 }

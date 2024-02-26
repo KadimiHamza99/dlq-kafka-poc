@@ -34,7 +34,7 @@ public class KafkaProducer {
                 StringSerializer.class);
         configProps.put(
                 ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG,
-                JsonSerializer.class);
+                StringSerializer.class);
         configProps.put(
                 ProducerConfig.ACKS_CONFIG,
                 "all");
@@ -42,13 +42,13 @@ public class KafkaProducer {
         configProps.put(
                 ProducerConfig.BATCH_SIZE_CONFIG,
                 Integer.toString(32*1024));
-        // the number of milliseconds a producer is willing to wait before sending a batch out.
-        configProps.put(
-                ProducerConfig.LINGER_MS_CONFIG,
-                0);
-        configProps.put(
-                ProducerConfig.MAX_IN_FLIGHT_REQUESTS_PER_CONNECTION,
-                1);
+//        // the number of milliseconds a producer is willing to wait before sending a batch out.
+//        configProps.put(
+//                ProducerConfig.LINGER_MS_CONFIG,
+//                0);
+//        configProps.put(
+//                ProducerConfig.MAX_IN_FLIGHT_REQUESTS_PER_CONNECTION,
+//                1);
         return new DefaultKafkaProducerFactory<>(configProps);
     }
 
