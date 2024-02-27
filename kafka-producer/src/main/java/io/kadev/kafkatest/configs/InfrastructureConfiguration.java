@@ -17,10 +17,6 @@ public class InfrastructureConfiguration {
     private String bootstrapAddress;
     @Value(value = "${spring.kafka.topic.name}")
     private String mainTopic;
-    @Value(value = "${spring.kafka.topic.name.retry}")
-    private String retryTopic;
-    @Value(value = "${spring.kafka.topic.name.dlt}")
-    private String deadLettersTopic;
     @Value(value = "${spring.kafka.replication.factor}")
     private short replicationFactor;
     @Value(value = "${spring.kafka.partition.number}")
@@ -37,15 +33,5 @@ public class InfrastructureConfiguration {
     public NewTopic mainTopic() {
         return new NewTopic(mainTopic, partitionNumber, replicationFactor);
     }
-    @Bean
-    public NewTopic retryTopic() {
-        return new NewTopic(retryTopic, partitionNumber, replicationFactor);
-    }
-    @Bean
-    public NewTopic DeadLetterTopic() {
-        return new NewTopic(deadLettersTopic, partitionNumber, replicationFactor);
-    }
-
-
 
 }

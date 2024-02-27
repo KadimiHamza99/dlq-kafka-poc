@@ -34,7 +34,7 @@ public class KafkaProducer {
                 StringSerializer.class);
         configProps.put(
                 ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG,
-                StringSerializer.class);
+                JsonSerializer.class);
         configProps.put(
                 ProducerConfig.ACKS_CONFIG,
                 "all");
@@ -56,5 +56,5 @@ public class KafkaProducer {
     public KafkaTemplate<String, Object> kafkaTemplate() {
         return new KafkaTemplate<>(producerFactory());
     }
-
+//
 }
