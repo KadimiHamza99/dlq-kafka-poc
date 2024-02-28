@@ -1,14 +1,22 @@
 package io.kadev.kafkaconsumer1.config;
 
+import io.kadev.kafkaconsumer1.exceptions.NonRetryableException;
 import io.kadev.kafkaconsumer1.exceptions.RetryableException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.producer.ProducerConfig;
+import org.apache.kafka.clients.producer.ProducerInterceptor;
+import org.apache.kafka.clients.producer.ProducerRecord;
+import org.apache.kafka.clients.producer.RecordMetadata;
+import org.apache.kafka.common.header.Header;
+import org.apache.kafka.common.header.internals.RecordHeader;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.apache.kafka.common.serialization.StringSerializer;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
+import org.springframework.core.convert.ConversionException;
 import org.springframework.kafka.annotation.EnableKafka;
 import org.springframework.kafka.config.ConcurrentKafkaListenerContainerFactory;
 import org.springframework.kafka.config.KafkaListenerContainerFactory;
@@ -18,22 +26,29 @@ import org.springframework.kafka.core.DefaultKafkaProducerFactory;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.core.ProducerFactory;
 import org.springframework.kafka.listener.ContainerProperties;
+import org.springframework.kafka.listener.DeadLetterPublishingRecoverer;
+import org.springframework.kafka.retrytopic.RetryTopicConfiguration;
+import org.springframework.kafka.retrytopic.RetryTopicConfigurationBuilder;
 import org.springframework.kafka.retrytopic.RetryTopicConfigurationSupport;
+import org.springframework.kafka.support.KafkaHeaders;
+import org.springframework.kafka.support.serializer.DeserializationException;
 import org.springframework.kafka.support.serializer.ErrorHandlingDeserializer;
 import org.springframework.kafka.support.serializer.JsonDeserializer;
 import org.springframework.kafka.support.serializer.JsonSerializer;
+import org.springframework.messaging.converter.MessageConversionException;
+import org.springframework.messaging.handler.invocation.MethodArgumentResolutionException;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.util.backoff.FixedBackOff;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.HexFormat;
 import java.util.List;
 import java.util.Map;
 
 @EnableKafka
 @Configuration
 @EnableScheduling
-@Slf4j
 public class KafkaConsumerConfig extends RetryTopicConfigurationSupport {
     @Value(value = "${spring.kafka.bootstrap-servers}")
     private String bootstrapAddress;
@@ -45,6 +60,7 @@ public class KafkaConsumerConfig extends RetryTopicConfigurationSupport {
         ConcurrentKafkaListenerContainerFactory<String, Object> factory = new ConcurrentKafkaListenerContainerFactory<>();
         factory.setConsumerFactory(consumerFactory());
         factory.setConcurrency(1);
+        factory.setRecordInterceptor(consumerInterceptorConfig());
 //        factory.getContainerProperties().setPollTimeout(3000);
         factory.setBatchListener(false);
         /*
@@ -57,7 +73,6 @@ public class KafkaConsumerConfig extends RetryTopicConfigurationSupport {
          */
         factory.getContainerProperties().setAckMode(ContainerProperties.AckMode.MANUAL_IMMEDIATE);
         factory.getContainerProperties().setSyncCommits(true);
-//        factory.setCommonErrorHandler(errorHandler());
         return factory;
     }
 
@@ -81,11 +96,7 @@ public class KafkaConsumerConfig extends RetryTopicConfigurationSupport {
         props.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, false);
         props.put(ConsumerConfig.AUTO_COMMIT_INTERVAL_MS_CONFIG, 1500);
         props.put("spring.json.trusted.packages", "*");
-//        props.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "latest");
-//        props.put(ConsumerConfig.REQUEST_TIMEOUT_MS_CONFIG, 500);
-//        props.put(ConsumerConfig.SESSION_TIMEOUT_MS_CONFIG, 5000);
-//        props.put(ConsumerConfig.SOCKET_CONNECTION_SETUP_TIMEOUT_MS_CONFIG, 500);
-//        props.put(ConsumerConfig.DEFAULT_API_TIMEOUT_MS_CONFIG, 500);
+        props.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "latest");
         return props;
     }
 
@@ -93,45 +104,17 @@ public class KafkaConsumerConfig extends RetryTopicConfigurationSupport {
     protected void configureBlockingRetries(BlockingRetriesConfigurer blockingRetries) {
         blockingRetries
                 .retryOn(RetryableException.class, IOException.class)
-                .backOff(new FixedBackOff(1000, 2));
+                .backOff(new FixedBackOff(1000, 1));
     }
 
     @Override
     protected void manageNonBlockingFatalExceptions(List<Class<? extends Throwable>> nonBlockingFatalExceptions) {
-        nonBlockingFatalExceptions.add(NullPointerException.class);
-    }
-
-
-
-
-
-
-    //Retry Producer
-    @Bean
-    public ProducerFactory<String, Object> producerFactory() {
-        Map<String, Object> configProps = new HashMap<>();
-        configProps.put(
-                ProducerConfig.BOOTSTRAP_SERVERS_CONFIG,
-                bootstrapAddress);
-        configProps.put(
-                ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG,
-                StringSerializer.class);
-        configProps.put(
-                ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG,
-                JsonSerializer.class);
-        configProps.put(
-                ProducerConfig.ACKS_CONFIG,
-                "all");
-        // the maximum number of bytes that will be included in a batch
-        configProps.put(
-                ProducerConfig.BATCH_SIZE_CONFIG,
-                Integer.toString(32*1024));
-        return new DefaultKafkaProducerFactory<>(configProps);
+        nonBlockingFatalExceptions.add(NonRetryableException.class);
     }
 
     @Bean
-    public KafkaTemplate<String, Object> kafkaTemplate() {
-        return new KafkaTemplate<>(producerFactory());
+    public ConsumerInterceptorConfig consumerInterceptorConfig(){
+        return new ConsumerInterceptorConfig();
     }
 
 }
