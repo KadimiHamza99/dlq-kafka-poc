@@ -1,8 +1,8 @@
-package io.kadev.kafkaconsumer1.config;
+package io.kadev.kafkaconsumer2.config;
 
-import io.kadev.kafkaconsumer1.exceptions.NonRetryableException;
-import io.kadev.kafkaconsumer1.exceptions.RetryableException;
-import io.kadev.kafkaconsumer1.models.InputModel;
+import io.kadev.kafkaconsumer2.exceptions.NonRetryableException;
+import io.kadev.kafkaconsumer2.exceptions.RetryableException;
+import io.kadev.kafkaconsumer2.models.InputModel;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.springframework.beans.factory.annotation.Value;

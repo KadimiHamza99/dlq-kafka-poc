@@ -21,6 +21,10 @@ public class InfrastructureConfiguration {
     private short replicationFactor;
     @Value(value = "${spring.kafka.partition.number}")
     private int partitionNumber;
+    @Value(value = "${spring.kafka.zombie.topic.name}")
+    private String zombieTopic;
+    @Value(value = "${spring.kafka.savetolater.topic.name}")
+    private String saveToLaterTopic;
 
     @Bean
     public KafkaAdmin kafkaAdmin() {
@@ -32,6 +36,16 @@ public class InfrastructureConfiguration {
     @Bean
     public NewTopic mainTopic() {
         return new NewTopic(mainTopic, partitionNumber, replicationFactor);
+    }
+
+    @Bean
+    public NewTopic zombieTopic() {
+        return new NewTopic(zombieTopic, partitionNumber, replicationFactor);
+    }
+
+    @Bean
+    public NewTopic saveToLaterTopic() {
+        return new NewTopic(saveToLaterTopic, partitionNumber, replicationFactor);
     }
 
 }

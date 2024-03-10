@@ -1,0 +1,70 @@
+*/.idea/
+*/*/target/*
+*/target/*
+*/target/**
+*/*/target/**
+*/bin/
+*/pom.xml.tag
+*/pom.xml.releaseBackup
+*/pom.xml.versionsBackup
+*/pom.xml.next
+*/release.properties
+*/dependency-reduced-pom.xml
+*/buildNumber.properties
+*/.mvn/timing.properties
+*/.metadata
+*/*.tmp
+*/*.bak
+*/*.swp
+*/*.bat
+*/*.log
+*/*~.nib
+*/*.class
+*/*.zip
+*/*.log
+*/local.properties
+*/.settings/
+*/.loadpath
+*/.recommenders
+*/.sonarlint/
+*/.mvn/
+*/mvnw
+*/mvnw.cmd
+# Eclipse Core
+# External tool builders
+*/.externalToolBuilders/
+# Locally stored "Eclipse launch configurations"
+*/*.launch
+# PyDev specific (Python IDE for Eclipse)
+*/*.pydevproject
+# CDT-specific (C/C++ Development Tooling)
+*/.cproject
+# JDT-specific (Eclipse Java Development Tools)
+# MacOS
+*/.DS_Store
+# Intellij
+*/*.iml
+*/.idea/
+# Java annotation processor (APT)
+*/.factorypath
+# PDT-specific (PHP Development Tools)
+*/.buildpath
+# sbteclipse plugin
+*/.target
+# Tern plugin
+*/.tern-project
+# TeXlipse plugin
+*/.texlipse
+# STS (Spring Tool Suite)
+*/.springBeans
+# Code Recommenders
+*/.recommenders/
+
+# Avoid ignoring Maven wrapper jar file (.jar files are usually ignored)
+*/!/.mvn/wrapper/maven-wrapper.jar
+
+# Specific Axa hidden folder
+*/.sdpCache
+
+# Exclude Kafka jks
+*/.jks/

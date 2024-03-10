@@ -1,9 +1,10 @@
-package io.kadev.kafkaconsumer1;
+package io.kadev.kafkaconsumer2;
 
-import io.kadev.kafkaconsumer1.exceptions.NonRetryableException;
-import io.kadev.kafkaconsumer1.exceptions.RetryableException;
-import io.kadev.kafkaconsumer1.models.InputModel;
-import io.kadev.kafkaconsumer1.utils.Constants;
+
+import io.kadev.kafkaconsumer2.exceptions.NonRetryableException;
+import io.kadev.kafkaconsumer2.exceptions.RetryableException;
+import io.kadev.kafkaconsumer2.models.InputModel;
+import io.kadev.kafkaconsumer2.utils.Constants;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +40,7 @@ public class ListenerKafka {
     private String saveToLaterTopic;
 
     @RetryableTopic(kafkaTemplate = "kafkaTemplate",
-            attempts = "2",
+            attempts = "4",
             traversingCauses = "true",
             retryTopicSuffix = "#{'.retry.'.concat('${spring.kafka.consumer.group-id}')}",
             dltTopicSuffix = "#{'.dlt.'.concat('${spring.kafka.consumer.group-id}')}",

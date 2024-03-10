@@ -1,4 +1,4 @@
-package io.kadev.kafkaconsumer1.config;
+package io.kadev.kafkaconsumer2.config;
 
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringSerializer;

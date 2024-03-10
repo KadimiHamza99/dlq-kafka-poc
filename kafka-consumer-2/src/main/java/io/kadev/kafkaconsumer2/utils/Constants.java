@@ -1,4 +1,4 @@
-package io.kadev.kafkaconsumer1.utils;
+package io.kadev.kafkaconsumer2.utils;
 
 import lombok.experimental.UtilityClass;
 

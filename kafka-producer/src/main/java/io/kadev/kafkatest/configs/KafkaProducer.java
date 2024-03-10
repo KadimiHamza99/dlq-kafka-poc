@@ -53,8 +53,15 @@ public class KafkaProducer {
     }
 
     @Bean
-    public KafkaTemplate<String, Object> kafkaTemplate() {
-        return new KafkaTemplate<>(producerFactory());
+    public ProducerInterceptorConfig<String, Object> producerInterceptorConfig(){
+        return new ProducerInterceptorConfig<>();
     }
-//
+
+    @Bean
+    public KafkaTemplate<String, Object> kafkaTemplate() {
+        KafkaTemplate<String, Object> kafkaTemplate = new KafkaTemplate<>(producerFactory());
+        kafkaTemplate.setProducerInterceptor(producerInterceptorConfig());
+        return kafkaTemplate;
+    }
+
 }

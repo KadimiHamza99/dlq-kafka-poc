@@ -1,18 +1,15 @@
-package io.kadev.kafkaconsumer1.config;
+package io.kadev.kafkaconsumer2.config;
 
-import io.kadev.kafkaconsumer1.utils.Constants;
+import io.kadev.kafkaconsumer2.utils.Constants;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.consumer.Consumer;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
-import org.apache.kafka.common.header.Header;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.listener.RecordInterceptor;
 import org.springframework.kafka.support.KafkaHeaders;
 
-import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
 
 
 @NoArgsConstructor
@@ -34,7 +31,6 @@ public class ConsumerInterceptorConfig<K,V> implements RecordInterceptor<K,V> {
                     record.headers().lastHeader(KafkaHeaders.ORIGINAL_TOPIC).value(),
                     StandardCharsets.UTF_8
             );
-            //Le cas où le service de batch à renvoyer un ancien record pour le rejouer
             if((groupId.equals(failedService) && sourceTopic.equals(mainTopic))
                     && !failedService.isEmpty()
                     && !mainTopic.isEmpty()
@@ -42,11 +38,9 @@ public class ConsumerInterceptorConfig<K,V> implements RecordInterceptor<K,V> {
                 log.info("Retrying a failed record");
                 return record;
             }
-            //Si le record a été déjà bien consommer par ce service et qui est republié pour un autre consommateur qui ne l'a pas bien traité
             log.info("Already processed, skipped by interceptor");
             return null;
         } catch (Exception e){
-            //Le record est traité pour la première fois par ce consommateur
             log.info("No original consumer/topic were found");
             return record;
         }
