@@ -50,7 +50,9 @@ public class ListenerKafka {
             },
             backoff = @Backoff(delay = 3000)
     )
-    @KafkaListener(topics = "#{'${spring.kafka.main.topic.name}'}")
+    @KafkaListener(topics = "#{'${spring.kafka.main.topic.name}'}",
+            groupId = "#{'${spring.kafka.consumer.group-id}'}"
+    )
     public void listener(
             @Payload InputModel message,
             @Header(KafkaHeaders.RECEIVED_PARTITION) int partition,
