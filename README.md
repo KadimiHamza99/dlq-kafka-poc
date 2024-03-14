@@ -1,6 +1,8 @@
-# Projet Spring Boot avec Apache Kafka
+# PoC rejeu Kafka
 
 Ce projet implémente un système distribué basé sur Apache Kafka, comprenant un producteur et deux consommateurs Spring Boot. L'objectif est de simuler le traitement de messages, la gestion d'erreurs, et la résilience du système.
+
+![conception.png](conception.png)
 
 ## Architecture
 
@@ -37,11 +39,13 @@ Pour exécuter le projet :
 1. Utilisez Docker Compose pour lancer les composants Kafka, Zookeeper, et AKHQ (interface de gestion de Kafka) :
    ```
    cd kafka-producer/resources/
-   docker-compose up ```
+   docker-compose up 
+   ```
 
 2. Exécutez les services restants à partir de votre éditeur de code (IntelliJ ou Eclipse) ou via Maven :
    ```
-   mvn spring-boot:run ```
+   mvn spring-boot:run 
+   ```
 
 ## Remarques
 Assurez-vous que les dépendances nécessaires sont installées et que les configurations sont correctement définies.
