@@ -37,6 +37,9 @@ public class RetryProducerConfig {
         configProps.put(
                 ProducerConfig.ACKS_CONFIG,
                 "all");
+        configProps.put(ProducerConfig.RETRIES_CONFIG,Integer.toString(Integer.MAX_VALUE));
+        configProps.put(ProducerConfig.DELIVERY_TIMEOUT_MS_CONFIG,1000);
+        configProps.put(ProducerConfig.RETRY_BACKOFF_MS_CONFIG,500);
         // the maximum number of bytes that will be included in a batch
         configProps.put(
                 ProducerConfig.BATCH_SIZE_CONFIG,
