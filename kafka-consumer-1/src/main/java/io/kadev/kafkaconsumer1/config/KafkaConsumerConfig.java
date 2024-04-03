@@ -69,11 +69,13 @@ public class KafkaConsumerConfig extends RetryTopicConfigurationSupport {
         props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, JsonDeserializer.class);
         props.put(JsonDeserializer.USE_TYPE_INFO_HEADERS, false);
         props.put(JsonDeserializer.VALUE_DEFAULT_TYPE, InputModel.class.getTypeName());
+        props.put(JsonDeserializer.KEY_DEFAULT_TYPE, String.class.getTypeName());
         props.put(ErrorHandlingDeserializer.KEY_DESERIALIZER_CLASS, StringDeserializer.class);
         props.put(ErrorHandlingDeserializer.VALUE_DESERIALIZER_CLASS, JsonDeserializer.class);
-        props.put(ConsumerConfig.MAX_POLL_INTERVAL_MS_CONFIG, 7000);
+        props.put(ConsumerConfig.MAX_POLL_INTERVAL_MS_CONFIG, 15000);
+        props.put(ConsumerConfig.HEARTBEAT_INTERVAL_MS_CONFIG, 5000);
+        props.put(ConsumerConfig.SESSION_TIMEOUT_MS_CONFIG, 25000);
         props.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, false);
-        props.put(ConsumerConfig.AUTO_COMMIT_INTERVAL_MS_CONFIG, 1500);
         props.put("spring.json.trusted.packages", "*");
         props.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "latest");
         return props;

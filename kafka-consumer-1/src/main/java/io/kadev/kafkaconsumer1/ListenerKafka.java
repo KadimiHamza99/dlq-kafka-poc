@@ -3,15 +3,20 @@ package io.kadev.kafkaconsumer1;
 import io.kadev.kafkaconsumer1.exceptions.NonRetryableException;
 import io.kadev.kafkaconsumer1.exceptions.RetryableException;
 import io.kadev.kafkaconsumer1.models.InputModel;
-import io.kadev.kafkaconsumer1.utils.Constants;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.kafka.clients.producer.ProducerRecord;
+import org.apache.kafka.common.TopicPartition;
+import org.apache.kafka.common.header.internals.RecordHeader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
 import org.springframework.kafka.annotation.DltHandler;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.annotation.RetryableTopic;
+import org.springframework.kafka.core.KafkaOperations;
 import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.kafka.listener.DeadLetterPublishingRecoverer;
 import org.springframework.kafka.retrytopic.DltStrategy;
 import org.springframework.kafka.retrytopic.SameIntervalTopicReuseStrategy;
 import org.springframework.kafka.support.Acknowledgment;
@@ -21,7 +26,10 @@ import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.retry.annotation.Backoff;
 import org.springframework.stereotype.Component;
+import org.springframework.util.backoff.FixedBackOff;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 
@@ -40,6 +48,7 @@ public class ListenerKafka {
 
     @RetryableTopic(kafkaTemplate = "kafkaTemplate",
             attempts = "2",
+            autoCreateTopics = "true",
             traversingCauses = "true",
             retryTopicSuffix = "#{'.retry.'.concat('${spring.kafka.consumer.group-id}')}",
             dltTopicSuffix = "#{'.dlt.'.concat('${spring.kafka.consumer.group-id}')}",
@@ -61,7 +70,7 @@ public class ListenerKafka {
     ) {
         try{
             log.info("message partition {} offset {}", partition, offset);
-            if(message.getBody().getAXAContextHeader().getAems_contextHeader().getAems_functionalID().contains("1BD5EI5I5YE4")){
+            if(message.getBody().getAXAContextHeader().getAems_contextHeader().getAems_functionalID().contains("1IAJD98DZA9")){
                 throw new RetryableException();
             }
         } finally {
@@ -77,25 +86,30 @@ public class ListenerKafka {
             InputModel message,
             @Header(KafkaHeaders.ORIGINAL_OFFSET) byte[] offset,
             @Header(KafkaHeaders.ORIGINAL_TOPIC) String sourceTopic,
-            @Header(KafkaHeaders.ORIGINAL_CONSUMER_GROUP) String failedService,
+//            @Header(KafkaHeaders.ORIGINAL_CONSUMER_GROUP) String failedService,
             @Header(KafkaHeaders.EXCEPTION_CAUSE_FQCN) String exception,
+            @Header(KafkaHeaders.DLT_ORIGINAL_CONSUMER_GROUP) String failedService,
             Acknowledgment acknowledgment
     ) {
         log.warn(exception);
         log.warn(sourceTopic);
         log.warn(failedService);
-
+        List <org.apache.kafka.common.header.Header> headers = new ArrayList<>();
+        headers.add(new RecordHeader(KafkaHeaders.EXCEPTION_CAUSE_FQCN, exception.getBytes()));
+        headers.add(new RecordHeader(KafkaHeaders.ORIGINAL_TOPIC, sourceTopic.getBytes()));
+        headers.add(new RecordHeader(KafkaHeaders.DLT_ORIGINAL_CONSUMER_GROUP, failedService.getBytes()));
         if(RetryableException.class.getTypeName().equals(exception)){
-            sendMessage(saveToLaterTopic, message);
-        } else {
-            sendMessage(zombieTopic, message);
+            sendMessage(saveToLaterTopic, message, headers);
+        } else if(NonRetryableException.class.getName().equals(exception)){
+            sendMessage(zombieTopic, message, headers);
         }
-
-
+        acknowledgment.acknowledge();
     }
 
-    private void sendMessage(String topicName, Object message){
-        CompletableFuture<SendResult<String, Object>> future = kafkaTemplate.send(topicName, UUID.randomUUID().toString(), message);
+    private void sendMessage(String topicName, Object message, List <org.apache.kafka.common.header.Header> headers){
+        ProducerRecord<String, Object> record = new ProducerRecord <>
+                (topicName, null, System.currentTimeMillis(), UUID.randomUUID().toString(), message, headers);
+        CompletableFuture<SendResult<String, Object>> future = kafkaTemplate.send(record);
         future.whenComplete((result, ex) -> {
             if (ex == null) {
                 log.info("Message sent to {}", topicName);
