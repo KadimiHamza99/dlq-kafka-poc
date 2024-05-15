@@ -3,6 +3,7 @@ package io.kadev.kafkaconsumer1;
 import io.kadev.kafkaconsumer1.exceptions.NonRetryableException;
 import io.kadev.kafkaconsumer1.exceptions.RetryableException;
 import io.kadev.kafkaconsumer1.models.InputModel;
+import io.kadev.kafkaconsumer1.utils.Constants;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.producer.ProducerRecord;
@@ -28,6 +29,7 @@ import org.springframework.retry.annotation.Backoff;
 import org.springframework.stereotype.Component;
 import org.springframework.util.backoff.FixedBackOff;
 
+import java.lang.constant.Constable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -77,7 +79,6 @@ public class ListenerKafka {
             log.warn("Message committed");
             acknowledgment.acknowledge();
         }
-
     }
 
 
@@ -89,15 +90,18 @@ public class ListenerKafka {
 //            @Header(KafkaHeaders.ORIGINAL_CONSUMER_GROUP) String failedService,
             @Header(KafkaHeaders.EXCEPTION_CAUSE_FQCN) String exception,
             @Header(KafkaHeaders.DLT_ORIGINAL_CONSUMER_GROUP) String failedService,
+            @Header(Constants.NUMBER_OF_RETRIES) String retries,
             Acknowledgment acknowledgment
     ) {
         log.warn(exception);
         log.warn(sourceTopic);
         log.warn(failedService);
+        log.warn(retries);
         List <org.apache.kafka.common.header.Header> headers = new ArrayList<>();
         headers.add(new RecordHeader(KafkaHeaders.EXCEPTION_CAUSE_FQCN, exception.getBytes()));
         headers.add(new RecordHeader(KafkaHeaders.ORIGINAL_TOPIC, sourceTopic.getBytes()));
         headers.add(new RecordHeader(KafkaHeaders.DLT_ORIGINAL_CONSUMER_GROUP, failedService.getBytes()));
+        headers.add(new RecordHeader(Constants.NUMBER_OF_RETRIES, retries.getBytes()));
         if(RetryableException.class.getTypeName().equals(exception)){
             sendMessage(saveToLaterTopic, message, headers);
         } else if(NonRetryableException.class.getName().equals(exception)){

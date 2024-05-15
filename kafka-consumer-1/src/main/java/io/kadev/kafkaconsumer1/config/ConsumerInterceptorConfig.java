@@ -34,12 +34,16 @@ public class ConsumerInterceptorConfig<K,V> implements RecordInterceptor<K,V> {
                     record.headers().lastHeader(KafkaHeaders.ORIGINAL_TOPIC).value(),
                     StandardCharsets.UTF_8
             );
+            String retries = new String(
+                    record.headers().lastHeader(Constants.NUMBER_OF_RETRIES).value(),
+                    StandardCharsets.UTF_8
+            );
             //Le cas où le service de batch à renvoyer un ancien record pour le rejouer
             if((groupId.equals(failedService) && sourceTopic.equals(mainTopic))
                     && !failedService.isEmpty()
                     && !mainTopic.isEmpty()
             ){
-                log.info("Retrying a failed record");
+                log.info("Retrying a failed record, retry number : {}", retries);
                 return record;
             }
             //Si le record a été déjà bien consommer par ce service et qui est republié pour un autre consommateur qui ne l'a pas bien traité
@@ -54,7 +58,16 @@ public class ConsumerInterceptorConfig<K,V> implements RecordInterceptor<K,V> {
 
     @Override
     public void failure(ConsumerRecord<K, V> record, Exception exception, Consumer<K, V> consumer) {
-//        record.headers()
-//                .add(Constants.FAILED_SERVICE, groupId.getBytes());
+        try {
+            new String(
+                    record.headers().lastHeader(Constants.NUMBER_OF_RETRIES).value(),
+                    StandardCharsets.UTF_8
+            );
+        } catch (Exception e) {
+            log.warn("Number of retries have been set");
+            record.headers()
+                    .add(Constants.NUMBER_OF_RETRIES, "0".getBytes());
+        }
+
     }
 }
